@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Size;
 
 public class UserResetRequest {
 	private String username;
-	@Size(min = 8, message = "New password must be at least 8 characters")
+	@Size(min = 8, message = "INVALID_NEWPASSWORD")
 	private String password;
 	
 	public String getUsername() {return username;}

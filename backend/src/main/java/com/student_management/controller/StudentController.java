@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.student_management.dto.request.StudentUpdatingRequest;
+import com.student_management.dto.response.ApiResponse;
 import com.student_management.entities.Student;
 import com.student_management.service.StudentService;
 
@@ -23,16 +24,29 @@ public class StudentController {
 	private StudentService studentService;
 	
 	@PostMapping("/update/{userId}")
-	ResponseEntity<Student> updatePersonalProfile(@RequestBody @Valid StudentUpdatingRequest request,
+	ApiResponse<Student> updatePersonalProfile(@RequestBody @Valid StudentUpdatingRequest request,
 			@PathVariable Long userId){
 		request.setUserId(userId);
-		Student student = studentService.updatePersonalProfile(request);
-		return ResponseEntity.ok(student);
+		
+		ApiResponse<Student> apiResponse = new ApiResponse<Student>();
+		apiResponse.setSuccess(true);
+		apiResponse.setCode(1000);
+		apiResponse.setMessage("Success");
+		apiResponse.setResult(studentService.updatePersonalProfile(request));
+		
+		return apiResponse;
 	}
 	
 	@GetMapping("/view/{userId}")
-	ResponseEntity<Student> viewPersonalProfile(@PathVariable Long userId){
+	ApiResponse<Student> viewPersonalProfile(@PathVariable Long userId){
 		Student student =  studentService.viewPersonalProfile(userId);
-		return ResponseEntity.ok(student);
+		
+		ApiResponse<Student> apiResponse = new ApiResponse<Student>();
+		apiResponse.setSuccess(true);
+		apiResponse.setCode(1000);
+		apiResponse.setMessage("Success");
+		apiResponse.setResult(student);
+		
+		return apiResponse;
 	}
 }

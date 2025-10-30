@@ -23,23 +23,42 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 	
-	// Sign up
+	// Operate smoothly
 	@PostMapping("/sign_up")
 	ApiResponse<User> UserSignUp(@RequestBody @Valid UserRegistrationRequest request){
+		User user = loginService.registerUser(request);
+		
 		ApiResponse<User> apiResponse = new ApiResponse<User>();
-		apiResponse.setResult(loginService.registerUser(request));
+		apiResponse.setSuccess(true);
+		apiResponse.setCode(1000);
+		apiResponse.setMessage("Success");
+		apiResponse.setResult(user);
 		return apiResponse;
 	}
 	
+	// Operate smoothly
 	@PostMapping
-	ResponseEntity<String> UserLogin(@RequestBody UserLoginRequest request){
+	ApiResponse<String> UserLogin(@RequestBody UserLoginRequest request){
 		loginService.login(request);
-		return ResponseEntity.ok("Login Successful");
+		
+		ApiResponse<String> apiResponse = new ApiResponse<String>();
+		apiResponse.setSuccess(true);
+		apiResponse.setCode(1000);
+		apiResponse.setMessage("Success");
+		
+		return apiResponse;
 	}
 	
+	// Operate smoothly
 	@PostMapping("/reset_password")
-	ResponseEntity<String> UserResetPassword(@RequestBody @Valid UserResetRequest request){
+	ApiResponse<String> UserResetPassword(@RequestBody @Valid UserResetRequest request){
 		loginService.resetPassword(request);
-		return ResponseEntity.ok("Reset Password Successful");
+		
+		ApiResponse<String> apiResponse = new ApiResponse<String>();
+		apiResponse.setSuccess(true);
+		apiResponse.setCode(1000);
+		apiResponse.setMessage("Success");
+		
+		return apiResponse;
 	}
 }

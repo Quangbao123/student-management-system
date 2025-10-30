@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.student_management.dto.request.StudentUpdatingRequest;
 import com.student_management.entities.Student;
+import com.student_management.enums.ErrorCode;
+import com.student_management.exception.CustomException;
 import com.student_management.repository.StudentRepository;
 
 @Service
@@ -28,7 +30,7 @@ public class StudentService {
 	
 	public Student viewPersonalProfile(Long userId) {
 		Student student = studentRepository.findByUser_UserId(userId)
-				.orElseThrow(()-> new RuntimeException("User not found"));
+				.orElseThrow(()-> new CustomException(ErrorCode.USER_NOT_FOUND));
 		return student;
 	}
 }

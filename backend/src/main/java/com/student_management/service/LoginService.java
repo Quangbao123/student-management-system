@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import com.student_management.dto.request.UserLoginRequest;
 import com.student_management.dto.request.UserRegistrationRequest;
@@ -17,6 +18,7 @@ import com.student_management.repository.StudentRepository;
 import com.student_management.repository.UserRepository;
 
 @Service
+@Validated
 public class LoginService {
 	
 	@Autowired
@@ -44,7 +46,7 @@ public class LoginService {
 		Student student = new Student();
 		student.setFirstName("default");
 		student.setLastName("default");
-		student.setEmail("@placeholder.com");
+		student.setEmail(request.getUsername()+"@placeholder.com");
 		student.setUser(savedUser);
 		studentRepository.save(student);
 
@@ -68,7 +70,7 @@ public class LoginService {
 	public void resetPassword(UserResetRequest request) {
 		// check username
 		User user = userRepository.findByUsername(request.getUsername())
-				.orElseThrow(() -> new CustomException(ErrorCode.INVALID_USERNAME));
+				.orElseThrow(() -> new CustomException(ErrorCode.INVALID_PREVIOUS_USERNAME));
 		
 		user.setPassword(request.getPassword());
 		userRepository.save(user);

@@ -7,7 +7,9 @@ public enum ErrorCode {
 	INVALID_LOGIN(1002, "Invalid username or password"),
 	INVALID_USERNAME(1003, "Username must be at least 4 charactes"),
 	INVALID_PASSWORD(1004, "Password must be at least 8 characters"),
-	USER_NOT_FOUND(1005, "User not found");
+	INVALID_NEWPASSWORD(1005, "New password must be at least 8 characters"),
+	INVALID_PREVIOUS_USERNAME(1006, "Invalid username"),
+	USER_NOT_FOUND(1007, "User not found");
 	
 	private final int code;
 	private final String message;

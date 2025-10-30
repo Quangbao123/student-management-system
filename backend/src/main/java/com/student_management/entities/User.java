@@ -2,8 +2,10 @@ package com.student_management.entities;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.student_management.enums.UserRole;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -20,7 +22,7 @@ public class User {
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column(name = "user_id")
+	@Column(name = "user_id", unique = true)
 	private Long userId;
 	
 	@Column(name="user_name", length = 20, nullable = false)
@@ -33,7 +35,8 @@ public class User {
 	@Column(name = "role")
 	private UserRole role;
 	
-	@OneToOne(mappedBy = "user")
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Student student;
 	
 	@Column(name = "is_active")

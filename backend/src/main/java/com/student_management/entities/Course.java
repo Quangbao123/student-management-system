@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "course")
@@ -29,4 +30,7 @@ public class Course {
 
     @Column(name = "create_at")
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Registration> registrations;
 }
